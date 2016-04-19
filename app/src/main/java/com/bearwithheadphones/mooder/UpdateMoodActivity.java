@@ -1,5 +1,6 @@
 package com.bearwithheadphones.mooder;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 /**
  * Created by bartoszcwynar on 13.04.2016.
@@ -18,11 +28,11 @@ public class UpdateMoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_update_mood);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment()).commit();
+                  .add(R.id.container, new PlaceholderFragment()).commit();
         }
 
     }
@@ -53,6 +63,9 @@ public class UpdateMoodActivity extends AppCompatActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        public LoginButton loginButton;
+        public CallbackManager callbackManager;
+
         public PlaceholderFragment() { }
 
         @Override
@@ -60,6 +73,11 @@ public class UpdateMoodActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_main,
                     container, false);
+            RelativeLayout rl = (RelativeLayout)rootView.findViewById(R.id.layout);
+            rl.setBackgroundColor(Color.RED);
+
+            TextView text = (TextView) rootView.findViewById(R.id.textView);
+            text.setText(getActivity().getIntent().getStringExtra("id"));
 
             return rootView;
         }

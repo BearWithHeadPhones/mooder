@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.zip.Inflater;
 
 /**
@@ -50,7 +51,8 @@ public class MoodsTimelineEntryAdapter extends BaseAdapter {
         TextView username = (TextView) rowView.findViewById(R.id.username);
         TextView date = (TextView) rowView.findViewById(R.id.date);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
-
+        ImageView photo = (ImageView) rowView.findViewById(R.id.photo);
+        photo.setImageResource(R.drawable.emo_im_winking);
         username.setText("Bartosz Cwynar");
         date.setText(new java.util.Date().toString());
         imageView.setImageBitmap(bitmaps.get(position));

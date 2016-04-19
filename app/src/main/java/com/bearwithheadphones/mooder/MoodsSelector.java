@@ -3,19 +3,18 @@ package com.bearwithheadphones.mooder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+
+
 
 import java.util.Random;
+
 
 /**
  * Created by bartoszcwynar on 12.04.2016.
@@ -37,6 +36,7 @@ public class MoodsSelector extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.moods_selector, container, false);
+
         ImageAdapter imageAdapter = new ImageAdapter(rootView.getContext());
 
 
@@ -49,12 +49,15 @@ public class MoodsSelector extends Fragment {
         }
 
 
-        for(SquareImageView squareImageView: imageAdapter.squareImageViews) {
+        for(final SquareImageView squareImageView: imageAdapter.squareImageViews) {
             squareImageView.setOnClickListener(new SquareImageView.OnClickListener() {
                 public void onClick(View v) {
 
                     //v.startAnimation(AnimationUtils.loadAnimation(rootView.getContext(), R.anim.mood_click_animation));
                     Intent intent = new Intent(rootView.getContext(), UpdateMoodActivity.class);
+
+                    Log.d("MOODER", Integer.toString((Integer)squareImageView.getTag()));
+                    intent.putExtra("id",Integer.toString((Integer)squareImageView.getTag()));
                     startActivity(intent);
                     ((Activity) rootView.getContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
 
