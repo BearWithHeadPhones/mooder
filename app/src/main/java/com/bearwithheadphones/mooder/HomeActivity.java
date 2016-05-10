@@ -9,17 +9,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.facebook.FacebookSdk;
+import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
-
 
 import java.util.ArrayList;
 
@@ -54,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
 
         TextView username = (TextView) findViewById(R.id.textView);
         username.setText(Profile.getCurrentProfile().getFirstName() + " " + Profile.getCurrentProfile().getLastName());
-
+        Log.d("MOODER",Profile.getCurrentProfile().getId() );
         ProfilePictureView profilePicture = (ProfilePictureView) findViewById(R.id.profile_picture);
         profilePicture.setProfileId(Profile.getCurrentProfile().getId());
         // Create the adapter that will return a fragment for each of the three
@@ -62,6 +61,15 @@ public class HomeActivity extends AppCompatActivity {
         //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
+
+        //ServerRequester serverRequester = new ServerRequester();
+        //serverRequester.activityref = this;
+        //serverRequester.execute();
+
+
+        Toast.makeText(this, MooderServerManager.getInstance().getAccessToken(), Toast.LENGTH_LONG).show();
+
+
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -133,4 +141,6 @@ public class HomeActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 }

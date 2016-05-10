@@ -9,6 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.Profile;
+import com.facebook.login.widget.ProfilePictureView;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.zip.Inflater;
@@ -22,7 +26,7 @@ public class MoodsTimelineEntryAdapter extends BaseAdapter {
 
         this.inflater = inflater;
     }
-
+    public ArrayList<String> ziomeczki = new ArrayList<String>();
     private final LayoutInflater inflater;
 
     public ArrayList<Bitmap> bitmaps = new ArrayList<>();
@@ -51,10 +55,12 @@ public class MoodsTimelineEntryAdapter extends BaseAdapter {
         TextView username = (TextView) rowView.findViewById(R.id.username);
         TextView date = (TextView) rowView.findViewById(R.id.date);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
-        ImageView photo = (ImageView) rowView.findViewById(R.id.photo);
-        photo.setImageResource(R.drawable.emo_im_winking);
-        username.setText("Bartosz Cwynar");
-        date.setText(new java.util.Date().toString());
+        ProfilePictureView profilePicture = (ProfilePictureView) rowView.findViewById(R.id.photo);
+        profilePicture.setProfileId(Profile.getCurrentProfile().getId());
+
+        username.setText(ziomeczki.get(position));
+
+        date.setText(new SimpleDateFormat("MM-dd-yyyy HH:mm").format(new java.util.Date()).toString());
         imageView.setImageBitmap(bitmaps.get(position));
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 

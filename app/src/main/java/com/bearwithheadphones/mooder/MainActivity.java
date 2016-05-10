@@ -19,6 +19,8 @@ package com.bearwithheadphones.mooder;
         import android.widget.TextView;
         import android.widget.Toast;
 
+        import com.bearwithheadphones.mooder.MooderServer.MooderServerTasksExecutor;
+        import com.bearwithheadphones.mooder.MooderServer.Tasks.GetAccessTokenTask;
         import com.facebook.AccessToken;
         import com.facebook.AccessTokenTracker;
         import com.facebook.CallbackManager;
@@ -56,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
                     Profile oldProfile,
                     Profile currentProfile) {
                 Profile.setCurrentProfile(currentProfile);
+
+                if(currentProfile != null){
+                    goToActivity();
+                }
+
             }
         };
 
@@ -66,8 +73,13 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        accessTokenTracker.startTracking();
+
 
         loginButton = (LoginButton)findViewById(R.id.connectWithFbButton);
+
+        loginButton.setReadPermissions("user_friends");
+
         if (savedInstanceState == null) {
         }
         try {
@@ -88,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if(accessToken != null && !accessToken.isExpired()){
+            Log.d("AccessToken",accessToken.getToken().toString());
 
-            Log.d("MOODER", Profile.getCurrentProfile().getFirstName());
-
+            new MooderServerTasksExecutor().execute(new GetAccessTokenTask());
             goToActivity();
         }
 
@@ -98,10 +110,11 @@ public class MainActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
-                Log.d("MOODER",Profile.getCurrentProfile().getFirstName());
-
-                goToActivity();
+                if(Profile.getCurrentProfile() == null){
+                    profileTracker.startTracking();
+                }else{
+                    profileTracker.stopTracking();
+                }
             }
 
             @Override
@@ -119,11 +132,6 @@ public class MainActivity extends AppCompatActivity {
         launch.setOnClickListener(new SquareImageView.OnClickListener() {
             public void onClick(View v) {
 
-                //v.startAnimation(AnimationUtils.loadAnimation(rootView.getContext(), R.anim.mood_click_animation));
-                //Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                //startActivity(intent);
-                //((Activity) getApplicationContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
-                //finish();
                 goToActivity();
 
             }
@@ -138,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        accessTokenTracker.stopTracking();
     }
 
     @Override
@@ -162,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void goToActivity(){
+    public void goToActivity(){
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
         //((Activity) getApplicationContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);

@@ -2,33 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/photo"
-            android:minHeight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/username" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/imageView"
-        android:layout_gravity="center"
-        android:minHeight="200dp"/>
+    android:gravity="center_horizontal"
+    android:paddingBottom="5pt"
+    android:paddingTop="5pt"
+    android:paddingLeft="1pt"
+    android:paddingRight="1pt">
 
     <TextView
         android:layout_width="fill_parent"
@@ -36,10 +14,38 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/date"
         android:layout_gravity="center"
-        android:paddingLeft="6dip"
-        android:paddingRight="6dip"
-        android:paddingBottom="50dip"
         android:gravity="center" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/username"
+        android:gravity="center"/>
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
+
+        <com.facebook.login.widget.ProfilePictureView
+            android:id="@+id/photo"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left">
+
+        </com.facebook.login.widget.ProfilePictureView>
+
+
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageView"
+            />
+
+
+    </LinearLayout>
 
 </LinearLayout>

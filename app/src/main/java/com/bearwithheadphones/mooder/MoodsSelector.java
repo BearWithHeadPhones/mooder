@@ -44,7 +44,10 @@ public class MoodsSelector extends Fragment {
         int x =0;
         while(x <1000){
             Random generator = new Random();
-            imageAdapter.addSquareImageView(moodsCreator.createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
+            int red = generator.nextInt(255);
+            int green = generator.nextInt(255);
+            int blue = generator.nextInt(255);
+            imageAdapter.addSquareImageView(moodsCreator.createMood(1000, red, green, blue),1000,red,green,blue);
             x++;
         }
 
@@ -57,7 +60,10 @@ public class MoodsSelector extends Fragment {
                     Intent intent = new Intent(rootView.getContext(), UpdateMoodActivity.class);
 
                     Log.d("MOODER", Integer.toString((Integer)squareImageView.getTag()));
-                    intent.putExtra("id",Integer.toString((Integer)squareImageView.getTag()));
+                    intent.putExtra("alpha",squareImageView.alpha);
+                    intent.putExtra("red",squareImageView.red);
+                    intent.putExtra("green",squareImageView.green);
+                    intent.putExtra("blue",squareImageView.blue);
                     startActivity(intent);
                     ((Activity) rootView.getContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
 

@@ -10,6 +10,10 @@ import android.widget.ImageView;
 
 public class SquareImageView extends ImageView {
 
+    public int alpha;
+    public int red;
+    public int green;
+    public int blue;
     static int id =0;
     int myId;
 

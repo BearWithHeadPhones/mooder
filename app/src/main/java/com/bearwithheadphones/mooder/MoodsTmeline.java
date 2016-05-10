@@ -1,9 +1,11 @@
 package com.bearwithheadphones.mooder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bearwithheadphones.mooder.MooderServer.MooderServerTasksExecutor;
+import com.bearwithheadphones.mooder.MooderServer.Tasks.GetUsersTask;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -18,9 +33,12 @@ import java.util.Random;
  */
 public class MoodsTmeline extends Fragment {
 
+
     public MoodsTmeline(){
 
     }
+
+    ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -28,12 +46,7 @@ public class MoodsTmeline extends Fragment {
         final View rootView = inflater.inflate(R.layout.moods_timeline, container, false);
 
 
-        MoodsTimelineEntryAdapter moodsTimelineEntryAdapter = new MoodsTimelineEntryAdapter(inflater);
-        Random generator = new Random();
-        for(int i = 0;i<100;i++){
-            moodsTimelineEntryAdapter.bitmaps.add(new MoodsCreator().createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
-        }
-
+        final MoodsTimelineEntryAdapter moodsTimelineEntryAdapter = new MoodsTimelineEntryAdapter(inflater);
 
         FloatingActionButton fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -44,9 +57,48 @@ public class MoodsTmeline extends Fragment {
             }
         });
 
-        ListView listView = (ListView)rootView.findViewById(R.id.listView);
-        listView.setAdapter(moodsTimelineEntryAdapter);
+        listView = (ListView)rootView.findViewById(R.id.listView);
 
+        GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/friends",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        try {
+                            JSONArray rawName = response.getJSONObject().getJSONArray("data");
+
+                            for(int i = 0;i<rawName.length();i++){
+                                Log.d("MOODER", rawName.getJSONObject(i).get("name").toString());
+                                moodsTimelineEntryAdapter.ziomeczki.add(i, rawName.getJSONObject(i).get("name").toString());
+                                Random generator = new Random();
+                                moodsTimelineEntryAdapter.bitmaps.add(new MoodsCreator().createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
+
+                            }
+                            //listView.setAdapter(moodsTimelineEntryAdapter);
+
+
+                            Log.d("MOODER",rawName.toString(4));
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).executeAsync();
+
+
+        for(int i = 0;i<10;i++){
+
+            moodsTimelineEntryAdapter.ziomeczki.add("Bartosz Cwynar De La Vega");
+            Random generator = new Random();
+            moodsTimelineEntryAdapter.bitmaps.add(new MoodsCreator().createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
+        }
+
+
+        new MooderServerTasksExecutor().execute(new GetUsersTask());
+        listView.setAdapter(moodsTimelineEntryAdapter);
 
 
     return rootView;
