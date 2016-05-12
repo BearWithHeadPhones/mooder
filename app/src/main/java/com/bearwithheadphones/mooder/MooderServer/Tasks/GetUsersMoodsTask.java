@@ -6,6 +6,7 @@ import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,13 +19,13 @@ import java.net.URL;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class GetUsersTask implements MooderServerTask {
+public class GetUsersMoodsTask implements MooderServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
-    final String requestUrl = "users/";
+    final String requestUrl = "moods/";
 
-    public GetUsersTask(){
+    public GetUsersMoodsTask(){
 
     }
 
@@ -51,7 +52,14 @@ public class GetUsersTask implements MooderServerTask {
             }
 
 
-            Log.d("GetUsersTask", buffer.toString());
+            //Log.d("GetUsersMoodsTask", buffer.toString());
+
+            Log.d("GetUsersMoodsTask", new JSONArray(buffer.toString()).toString());
+
+            JSONArray moods = new JSONArray(buffer.toString());
+            for(int i = 0;i<moods.length();i++){
+                Log.d("MOODER", moods.getJSONObject(i).get("moodType").toString());
+            }
 
             return "ok";
         }

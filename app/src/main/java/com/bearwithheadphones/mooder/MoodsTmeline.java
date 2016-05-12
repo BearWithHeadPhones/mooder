@@ -1,6 +1,5 @@
 package com.bearwithheadphones.mooder;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,12 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.bearwithheadphones.mooder.MooderServer.MooderServerTasksExecutor;
-import com.bearwithheadphones.mooder.MooderServer.Tasks.GetUsersTask;
+import com.bearwithheadphones.mooder.MooderServer.Tasks.GetUsersMoodsTask;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphRequestAsyncTask;
@@ -24,8 +21,6 @@ import com.facebook.HttpMethod;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -97,7 +92,7 @@ public class MoodsTmeline extends Fragment {
         }
 
 
-        new MooderServerTasksExecutor().execute(new GetUsersTask());
+        new MooderServerTasksExecutor().execute(new GetUsersMoodsTask());
         listView.setAdapter(moodsTimelineEntryAdapter);
 
 
