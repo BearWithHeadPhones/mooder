@@ -25,9 +25,10 @@ public class ImageAdapter extends BaseAdapter {
     }
 
 
-    public void addSquareImageView(Bitmap image){
+    public void addSquareImageView(String name, Bitmap image){
         SquareImageView squareImageView = new SquareImageView(mContext);
 
+        squareImageView.name = name;
         squareImageView.setImageBitmap(image);
         squareImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         squareImageViews.add(squareImageView);

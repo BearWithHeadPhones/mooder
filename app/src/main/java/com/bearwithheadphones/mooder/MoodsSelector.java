@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +43,8 @@ public class MoodsSelector extends Fragment {
 
         MoodsCreator moodsCreator = MoodsCreator.getInstance(this.getContext().getResources());
 
-        for(Bitmap moodBitmap:moodsCreator.getAllMoodBitmaps()){
-            imageAdapter.addSquareImageView(moodBitmap);
+        for(Pair<String,Bitmap> moodBitmap:moodsCreator.getAllMoodBitmaps()){
+            imageAdapter.addSquareImageView(moodBitmap.first , moodBitmap.second);
         }
 
         for(final SquareImageView squareImageView: imageAdapter.squareImageViews) {
@@ -54,7 +55,7 @@ public class MoodsSelector extends Fragment {
                     Intent intent = new Intent(rootView.getContext(), UpdateMoodActivity.class);
 
                     Log.d("MOODER", Integer.toString((Integer)squareImageView.getTag()));
-                    intent.putExtra("moodName","Love");
+                    intent.putExtra("moodName",squareImageView.name);
 
                     startActivity(intent);
                     ((Activity) rootView.getContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);

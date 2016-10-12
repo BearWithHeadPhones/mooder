@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
+import android.util.Pair;
 
 //import com.bearwithheadphones.mooder.Mood.Mood;
 
@@ -95,11 +96,12 @@ public class MoodsCreator {
 
     }
 
-    public ArrayList<Bitmap> getAllMoodBitmaps(){
-        ArrayList<Bitmap> allMoodBitmaps = new ArrayList<Bitmap>();
+    public ArrayList<Pair<String,Bitmap>> getAllMoodBitmaps(){
+        ArrayList<Pair<String,Bitmap>> allMoodBitmaps = new ArrayList<Pair<String,Bitmap>>();
 
-        for(Mood mood: moods.values()){
-            allMoodBitmaps.add(createMood(mood.alpha, mood.red, mood.green, mood.blue));
+        for(Map.Entry<String,Mood> mood: moods.entrySet()){
+            allMoodBitmaps.add(new Pair<String,Bitmap>(mood.getKey(),
+                    createMood(mood.getValue().alpha, mood.getValue().red, mood.getValue().green, mood.getValue().blue)));
         }
         Log.d("allMoodBitmaps",allMoodBitmaps.toString());
         return allMoodBitmaps;

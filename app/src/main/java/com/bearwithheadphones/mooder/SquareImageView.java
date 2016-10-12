@@ -15,6 +15,7 @@ public class SquareImageView extends ImageView {
     public int green;
     public int blue;
     static int id =0;
+    public String name;
     int myId;
 
     public SquareImageView(Context context) {
