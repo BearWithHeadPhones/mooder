@@ -45,23 +45,17 @@ public class UpdateMoodActivity extends AppCompatActivity {
         }
 
         SquareImageView mood= (SquareImageView)findViewById(R.id.imageView);
-        mood.setImageBitmap(new MoodsCreator().createMood(getIntent()
-                        .getIntExtra("alpha", 100),
-                getIntent().getIntExtra("red",100),
-                getIntent().getIntExtra("green",100),
-                getIntent().getIntExtra("blue",100)));
+        mood.setImageBitmap(MoodsCreator.getInstance(this.getResources()).getMoodBitmapByName(getIntent()
+                .getStringExtra("moodName")));
+
         mood.setScaleType(ImageView.ScaleType.FIT_XY);
 
         shareButton = (ShareButton) findViewById(R.id.share_btn);
-        SharePhoto photo = new SharePhoto.Builder().setBitmap(new MoodsCreator().createMood(getIntent()
-                .getIntExtra("alpha", 100),
-                getIntent().getIntExtra("red",100),
-                getIntent().getIntExtra("green",100),
-                getIntent().getIntExtra("blue",100))).build();
+        SharePhoto photo = new SharePhoto.Builder().setBitmap(MoodsCreator.getInstance(this.getResources()).getMoodBitmapByName(getIntent()
+                .getStringExtra("moodName"))).build();
 
         SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
         shareButton.setShareContent(content);
-
 
     }
 

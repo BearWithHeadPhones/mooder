@@ -2,6 +2,7 @@ package com.bearwithheadphones.mooder;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -39,18 +40,11 @@ public class MoodsSelector extends Fragment {
 
         ImageAdapter imageAdapter = new ImageAdapter(rootView.getContext());
 
+        MoodsCreator moodsCreator = MoodsCreator.getInstance(this.getContext().getResources());
 
-        MoodsCreator moodsCreator = new MoodsCreator();
-        int x =0;
-        while(x <1000){
-            Random generator = new Random();
-            int red = generator.nextInt(255);
-            int green = generator.nextInt(255);
-            int blue = generator.nextInt(255);
-            imageAdapter.addSquareImageView(moodsCreator.createMood(1000, red, green, blue),1000,red,green,blue);
-            x++;
+        for(Bitmap moodBitmap:moodsCreator.getAllMoodBitmaps()){
+            imageAdapter.addSquareImageView(moodBitmap);
         }
-
 
         for(final SquareImageView squareImageView: imageAdapter.squareImageViews) {
             squareImageView.setOnClickListener(new SquareImageView.OnClickListener() {
@@ -60,10 +54,8 @@ public class MoodsSelector extends Fragment {
                     Intent intent = new Intent(rootView.getContext(), UpdateMoodActivity.class);
 
                     Log.d("MOODER", Integer.toString((Integer)squareImageView.getTag()));
-                    intent.putExtra("alpha",squareImageView.alpha);
-                    intent.putExtra("red",squareImageView.red);
-                    intent.putExtra("green",squareImageView.green);
-                    intent.putExtra("blue",squareImageView.blue);
+                    intent.putExtra("moodName","Love");
+
                     startActivity(intent);
                     ((Activity) rootView.getContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
 

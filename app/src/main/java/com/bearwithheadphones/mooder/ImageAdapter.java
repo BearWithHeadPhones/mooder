@@ -4,6 +4,7 @@ package com.bearwithheadphones.mooder;
  * Created by bartoszcwynar on 12.04.2016.
  */
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +12,7 @@ import android.widget.ImageView;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
-
+//// TODO: 08.08.2016 should be able to bind SquareImageView with Mood id.  
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
@@ -24,15 +25,14 @@ public class ImageAdapter extends BaseAdapter {
     }
 
 
-    public void addSquareImageView(Bitmap image,int alpha, int red,int green,int blue){
+    public void addSquareImageView(Bitmap image){
         SquareImageView squareImageView = new SquareImageView(mContext);
-        squareImageView.alpha = alpha;
-        squareImageView.red = red;
-        squareImageView.green = green;
-        squareImageView.blue = blue;
+
         squareImageView.setImageBitmap(image);
         squareImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         squareImageViews.add(squareImageView);
+
+        Log.d("squareImageViews", squareImageViews.toString());
     }
 
     @Override

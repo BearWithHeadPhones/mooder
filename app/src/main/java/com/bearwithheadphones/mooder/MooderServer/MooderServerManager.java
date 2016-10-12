@@ -5,8 +5,10 @@ package com.bearwithheadphones.mooder.MooderServer;
  */
 public class MooderServerManager {
 
+    private final String devServer = "http://192.168.1.101:8000/";
+    private final String pythonAnywhereServer = "http://bearwithheadphones.pythonanywhere.com/";
     private static MooderServerManager mooderServerManager;
-    private final String mooderServerUrl = "http://192.168.1.101:8000/";
+    private final String mooderServerUrl = devServer;
     private String accessToken = "";
 
     private MooderServerManager(){

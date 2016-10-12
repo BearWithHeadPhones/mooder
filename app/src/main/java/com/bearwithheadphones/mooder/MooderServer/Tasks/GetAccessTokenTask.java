@@ -47,19 +47,26 @@ public class GetAccessTokenTask implements MooderServerTask {
                 buffer.append(line + "\n");
             }
 
-            try{
-                MooderServerManager.getInstance().setAccessToken(new JSONObject(buffer.toString()).getString("token"));
-            }
-            catch (JSONException e){
-                e.printStackTrace();
-            }
 
-            return "ok";
+            return buffer.toString();
+
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
         return "Cannot Connect";
+    }
+
+
+    @Override
+    public void postExecute(String result) {
+
+        try{
+            MooderServerManager.getInstance().setAccessToken(new JSONObject(result).getString("token"));
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 }

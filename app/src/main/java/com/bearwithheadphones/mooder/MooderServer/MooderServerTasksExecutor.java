@@ -11,20 +11,21 @@ import com.bearwithheadphones.mooder.MooderServer.Tasks.MooderServerTask;
 
 
 public class MooderServerTasksExecutor extends AsyncTask<MooderServerTask,Void,String> {
-
+    MooderServerTask mooderServerTask;
 
     @Override
     protected String doInBackground(MooderServerTask... mooderServerTasks) {
 
         if (null != mooderServerTasks[0]) {
-            return mooderServerTasks[0].execute();
+            mooderServerTask = mooderServerTasks[0];
+            return mooderServerTask.execute();
         }
         return "";
     }
 
     @Override
     protected void onPostExecute(String s) {
-        //do sth
+        mooderServerTask.postExecute(s);
     }
 }
 

@@ -3,6 +3,8 @@ package com.bearwithheadphones.mooder.MooderServer.Tasks;
 import android.util.Log;
 
 import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
+import com.bearwithheadphones.mooder.MoodsCreator;
+import com.bearwithheadphones.mooder.MoodsTimelineEntryAdapter;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
 
@@ -15,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Random;
 
 /**
  * Created by bartoszcwynar on 10.05.2016.
@@ -28,6 +31,9 @@ public class GetUsersMoodsTask implements MooderServerTask {
     public GetUsersMoodsTask(){
 
     }
+
+
+    public MoodsTimelineEntryAdapter moodsTimelineEntryAdapter;
 
     @Override
     public String execute() {
@@ -51,23 +57,38 @@ public class GetUsersMoodsTask implements MooderServerTask {
                 buffer.append(line + "\n");
             }
 
+            return buffer.toString();
 
-            //Log.d("GetUsersMoodsTask", buffer.toString());
-
-            Log.d("GetUsersMoodsTask", new JSONArray(buffer.toString()).toString());
-
-            JSONArray moods = new JSONArray(buffer.toString());
-            for(int i = 0;i<moods.length();i++){
-                Log.d("MOODER", moods.getJSONObject(i).get("moodType").toString());
-            }
-
-            return "ok";
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
         return "Cannot Connect";
+    }
+
+
+    @Override
+    public void postExecute(String result) {
+
+        try{
+            Log.d("GetUsersMoodsTask", new JSONArray(result).toString());
+            Random generator = new Random();
+            JSONArray moods = new JSONArray(result);
+            for(int i = 0;i<moods.length();i++){
+                Log.d("MOODER", moods.getJSONObject(i).get("moodType").toString());
+                moodsTimelineEntryAdapter.ziomeczki.add(moods.getJSONObject(i).get("moodType").toString());
+                //TODO MoodsCreator might be null here.
+                moodsTimelineEntryAdapter.bitmaps.add(MoodsCreator.getInstance().getMoodBitmapByName(moods.getJSONObject(i).get("moodType").toString()));
+                //moodsTimelineEntryAdapter.bitmaps.add(new MoodsCreator().createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
+            }
+        }
+
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        moodsTimelineEntryAdapter.notifyDataSetChanged();
     }
 }
 

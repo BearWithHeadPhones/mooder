@@ -6,4 +6,6 @@ package com.bearwithheadphones.mooder.MooderServer.Tasks;
 public interface MooderServerTask {
 
     public String execute();
+
+    public void postExecute(String result);
 }
