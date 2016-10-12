@@ -79,7 +79,7 @@ public class GetUsersMoodsTask implements MooderServerTask {
                 Log.d("MOODER", moods.getJSONObject(i).get("moodType").toString());
                 moodsTimelineEntryAdapter.ziomeczki.add(moods.getJSONObject(i).get("moodType").toString());
                 //TODO MoodsCreator might be null here.
-                moodsTimelineEntryAdapter.bitmaps.add(MoodsCreator.getInstance().getMoodBitmapByName(moods.getJSONObject(i).get("moodType").toString()));
+                moodsTimelineEntryAdapter.bitmaps.add(MoodsCreator.getInstance().getMoodBitmapByName(moods.getJSONObject(i).get("moodType").toString(),1,1));
                 //moodsTimelineEntryAdapter.bitmaps.add(new MoodsCreator().createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
             }
         }

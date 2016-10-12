@@ -85,14 +85,14 @@ public class MoodsCreator {
     private Map<String,Mood> moods = new HashMap<String,Mood>();
 
 
-    public Bitmap getMoodBitmapByName(String moodName){
+    public Bitmap getMoodBitmapByName(String moodName, int width, int height){
 
         if(moods.containsKey(moodName)){
             Mood mood = moods.get(moodName);
-            return createMood(mood.alpha,mood.red,mood.green,mood.blue);
+            return createMood(mood.alpha,mood.red,mood.green, mood.blue, width, height);
         }
 
-        return createMood(0,0,0,0);
+        return createMood(0,0,0,0,1,1);
 
     }
 
@@ -101,15 +101,13 @@ public class MoodsCreator {
 
         for(Map.Entry<String,Mood> mood: moods.entrySet()){
             allMoodBitmaps.add(new Pair<String,Bitmap>(mood.getKey(),
-                    createMood(mood.getValue().alpha, mood.getValue().red, mood.getValue().green, mood.getValue().blue)));
+                    createMood(mood.getValue().alpha, mood.getValue().red, mood.getValue().green, mood.getValue().blue,1,1)));
         }
         Log.d("allMoodBitmaps",allMoodBitmaps.toString());
         return allMoodBitmaps;
     }
 
-    private Bitmap createMood(int alpha,int red, int green,int blue) {
-        int width = 1;
-        int height = 1;
+    private Bitmap createMood(int alpha,int red, int green,int blue, int width , int height) {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
 

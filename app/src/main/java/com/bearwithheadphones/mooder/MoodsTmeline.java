@@ -57,15 +57,6 @@ public class MoodsTmeline extends Fragment {
 
         listView = (ListView)rootView.findViewById(R.id.listView);
 
-        for(int i = 0;i<1;i++){
-
-            moodsTimelineEntryAdapter.ziomeczki.add("Bartosz Cwynar De La Vega");
-            Random generator = new Random();
-            moodsTimelineEntryAdapter.bitmaps.add(MoodsCreator.getInstance(this.getContext().getResources()).getMoodBitmapByName("Love"));
-        }
-
-
-
 
         /*GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
@@ -126,22 +117,4 @@ public class MoodsTmeline extends Fragment {
     return rootView;
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Toast.makeText(this.getContext(), "Resume", Toast.LENGTH_LONG).show();
-    }
-
-    static public void DoSth(MoodsTimelineEntryAdapter moodsTimelineEntryAdapter){
-
-        moodsTimelineEntryAdapter.notifyDataSetChanged();
-    }
-
-
-    @Override
-    public void setExitTransition(Object transition) {
-        super.setExitTransition(transition);
-        Toast.makeText(this.getContext(), "exitTrans", Toast.LENGTH_LONG).show();
-    }
 }

@@ -1,29 +1,9 @@
 package com.bearwithheadphones.mooder;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
@@ -46,13 +26,13 @@ public class UpdateMoodActivity extends AppCompatActivity {
 
         SquareImageView mood= (SquareImageView)findViewById(R.id.imageView);
         mood.setImageBitmap(MoodsCreator.getInstance(this.getResources()).getMoodBitmapByName(getIntent()
-                .getStringExtra("moodName")));
+                .getStringExtra("moodName"),1,1));
 
         mood.setScaleType(ImageView.ScaleType.FIT_XY);
 
         shareButton = (ShareButton) findViewById(R.id.share_btn);
         SharePhoto photo = new SharePhoto.Builder().setBitmap(MoodsCreator.getInstance(this.getResources()).getMoodBitmapByName(getIntent()
-                .getStringExtra("moodName"))).build();
+                .getStringExtra("moodName"),500,500)).build();
 
         SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
         shareButton.setShareContent(content);

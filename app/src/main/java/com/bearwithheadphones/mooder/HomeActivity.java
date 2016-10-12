@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
 import com.facebook.Profile;
@@ -56,18 +55,10 @@ public class HomeActivity extends AppCompatActivity {
         Log.d("MOODER",Profile.getCurrentProfile().getId() );
         ProfilePictureView profilePicture = (ProfilePictureView) findViewById(R.id.profile_picture);
         profilePicture.setProfileId(Profile.getCurrentProfile().getId());
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-
-        //ServerRequester serverRequester = new ServerRequester();
-        //serverRequester.activityref = this;
-        //serverRequester.execute();
 
 
-        Toast.makeText(this, MooderServerManager.getInstance().getAccessToken(), Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(this, MooderServerManager.getInstance().getAccessToken(), Toast.LENGTH_LONG).show();
 
 
         mViewPager = (ViewPager) findViewById(R.id.container);
