@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MoodsCreator {
 
@@ -82,7 +83,7 @@ public class MoodsCreator {
         return moodsCreator;
     }
 
-    private Map<String,Mood> moods = new HashMap<String,Mood>();
+    private Map<String,Mood> moods = new TreeMap<String,Mood>();
 
 
     public Bitmap getMoodBitmapByName(String moodName, int width, int height){

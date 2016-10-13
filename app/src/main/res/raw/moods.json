@@ -1,46 +1,131 @@
 {
   "moods":[
     {
-      "name": "Love",
-      "red": 194,
-      "green": 59,
-      "blue": 34,
+      "name": "1",
+      "red": 244,
+      "green": 67,
+      "blue": 54,
       "alpha": 255
     },
     {
-      "name": "Green",
-      "red": 3,
-      "green": 192,
+      "name": "2",
+      "red": 233,
+      "green": 30,
+      "blue": 99,
+      "alpha": 255
+    },
+    {
+      "name": "3",
+      "red": 156,
+      "green": 39,
+      "blue": 176,
+      "alpha": 202
+    },
+    {
+      "name": "4",
+      "red": 103,
+      "green": 58,
+      "blue": 184,
+      "alpha": 255
+    },
+    {
+      "name": "5",
+      "red": 63,
+      "green": 81,
+      "blue": 181,
+      "alpha": 255
+    },
+    {
+      "name": "6",
+      "red": 33,
+      "green": 149,
+      "blue": 243,
+      "alpha": 255
+    },
+    {
+      "name": "7",
+      "red": 33,
+      "green": 169,
+      "blue": 244,
+      "alpha": 255
+    },
+    {
+      "name": "8",
+      "red": 44,
+      "green": 188,
+      "blue": 211,
+      "alpha": 255
+    },
+    {
+      "name": "9",
+      "red": 35,
+      "green": 150,
+      "blue": 136,
+      "alpha": 255
+    },
+    {
+      "name": "10",
+      "red": 76,
+      "green": 175,
+      "blue": 80,
+      "alpha": 255
+    },
+    {
+      "name": "11",
+      "red": 139,
+      "green": 195,
+      "blue": 74,
+      "alpha": 255
+    },
+    {
+      "name": "12",
+      "red": 205,
+      "green": 220,
+      "blue": 56,
+      "alpha": 255
+    },
+    {
+      "name": "14",
+      "red": 255,
+      "green": 235,
       "blue": 60,
       "alpha": 255
     },
     {
-      "name": "Blue",
-      "red": 119,
+      "name": "15",
+      "red": 253,
+      "green": 193,
+      "blue": 10,
+      "alpha": 255
+    },
+    {
+      "name": "16",
+      "red": 251,
+      "green": 152,
+      "blue": 1,
+      "alpha": 255
+    },
+    {
+      "name": "17",
+      "red": 250,
+      "green": 87,
+      "blue": 35,
+      "alpha": 255
+    },
+    {
+      "name": "18",
+      "red": 121,
+      "green": 85,
+      "blue": 72,
+      "alpha": 255
+    },
+    {
+      "name": "19",
+      "red": 158,
       "green": 158,
-      "blue": 255,
-      "alpha": 202
-    },
-    {
-      "name": "Hope",
-      "red": 255,
-      "green": 0,
-      "blue": 255,
-      "alpha": 255
-    },
-    {
-      "name": "Hate",
-      "red": 255,
-      "green": 255,
-      "blue": 0,
-      "alpha": 255
-    },
-    {
-      "name": "C",
-      "red": 0,
-      "green": 255,
-      "blue": 255,
+      "blue": 158,
       "alpha": 255
     }
+
   ]
 }

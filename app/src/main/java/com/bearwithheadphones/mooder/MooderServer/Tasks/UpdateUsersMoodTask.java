@@ -10,11 +10,13 @@ import com.facebook.Profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
@@ -22,14 +24,20 @@ import java.util.Random;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class GetUsersMoodsTask implements MooderServerTask {
+public class UpdateUsersMoodTask implements MooderServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
+    //final String requestUrl = "moods/";
+    String moodType;
+
     final String requestUrl = "moods/";
 
-    public GetUsersMoodsTask(){
 
+
+    public UpdateUsersMoodTask(String moodType){
+
+        this.moodType = moodType;
     }
 
 
@@ -40,11 +48,22 @@ public class GetUsersMoodsTask implements MooderServerTask {
         try
         {
 
-            URL url = new URL(MooderServerManager.getInstance().getMooderServerUrl()+ requestUrl);
+            URL url = new URL(MooderServerManager.getInstance().getMooderServerUrl()+ requestUrl + "?moodType=" + moodType);
 
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Authorization", "Token " + MooderServerManager.getInstance().getAccessToken());
+            urlConnection.setRequestProperty("moodType", moodType);
+
+
+            OutputStream os = urlConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write("moodType="+moodType);
+
+            writer.flush();
+            writer.close();
+            os.close();
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
@@ -63,33 +82,14 @@ public class GetUsersMoodsTask implements MooderServerTask {
         catch(Exception e)
         {
             System.out.println(e);
-            //TODO need to fix this!!!
-            return execute();
         }
-        //return "Cannot Connect";
+        return "Cannot Connect";
     }
 
 
     @Override
     public void postExecute(String result) {
 
-        try{
-            Log.d("GetUsersMoodsTask", new JSONArray(result).toString());
-            JSONArray moods = new JSONArray(result);
-            for(int i = 0;i<moods.length();i++){
-                Log.d("MOODER", moods.getJSONObject(i).get("moodType").toString());
-                moodsTimelineEntryAdapter.ziomeczki.add(moods.getJSONObject(i).get("moodType").toString());
-                //TODO MoodsCreator might be null here.
-                moodsTimelineEntryAdapter.bitmaps.add(MoodsCreator.getInstance().getMoodBitmapByName(moods.getJSONObject(i).get("moodType").toString(),1,1));
-                //moodsTimelineEntryAdapter.bitmaps.add(new MoodsCreator().createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
-            }
-        }
-
-        catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        moodsTimelineEntryAdapter.notifyDataSetChanged();
     }
 }
 
