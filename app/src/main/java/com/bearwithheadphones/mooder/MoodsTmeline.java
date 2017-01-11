@@ -50,57 +50,6 @@ public class MoodsTmeline extends Fragment {
 
         listView = (ListView)rootView.findViewById(R.id.listView);
 
-
-        /*GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                "/me/friends",
-                null,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        try {
-                            JSONArray rawName = response.getJSONObject().getJSONArray("data");
-                            int x = 1000000000;
-                            while(x> 0){
-                                x--;
-                            }
-                            x = 1000000000;
-                            while(x> 0){
-                                x--;
-                            }
-                            x = 1000000000;
-                            while(x> 0){
-                                x--;
-                            }
-                            x = 1000000000;
-                            while(x> 0){
-                                x--;
-                            }
-
-                                Random generator = new Random();
-                                int costam = 10; //generator.nextInt(5);
-                                for(int i = 0;i<costam;i++){
-
-                                    moodsTimelineEntryAdapter.ziomeczki.add("Bartosz Cwynar De La Vega");
-                                    moodsTimelineEntryAdapter.bitmaps.add(new MoodsCreator().createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
-                                    moodsTimelineEntryAdapter.notifyDataSetChanged();
-                                }
-
-
-                            //listView.setAdapter(moodsTimelineEntryAdapter);
-
-
-                            Log.d("MOODER",rawName.toString(4));
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).executeAsync();*/
-
-
-
         GetUsersMoodsTask getUsersMoodsTask = new GetUsersMoodsTask();
         getUsersMoodsTask.moodsTimelineEntryAdapter = moodsTimelineEntryAdapter;
         new MooderServerTasksExecutor().execute(getUsersMoodsTask);

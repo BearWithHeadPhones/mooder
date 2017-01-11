@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
                     Profile currentProfile) {
                 Profile.setCurrentProfile(currentProfile);
 
-                if(currentProfile != null){
+                if(currentProfile != null && AccessToken.getCurrentAccessToken() != null ){
+                    new MooderServerTasksExecutor().execute(new GetAccessTokenTask());
                     goToActivity();
                 }
 
@@ -68,10 +69,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
                 AccessToken.setCurrentAccessToken(newAccessToken);
+                if(newAccessToken != null && Profile.getCurrentProfile() != null)
+                {
+                    new MooderServerTasksExecutor().execute(new GetAccessTokenTask());
+                    goToActivity();
+                }
+
+
             }
         };
 
-        accessTokenTracker.startTracking();
+        //accessTokenTracker.startTracking();
 
 
         loginButton = (LoginButton)findViewById(R.id.connectWithFbButton);
@@ -97,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if(accessToken != null && !accessToken.isExpired()){
+
+        if(accessToken != null && !accessToken.isExpired() && Profile.getCurrentProfile() != null){
             Log.d("AccessToken",accessToken.getToken().toString());
 
             new MooderServerTasksExecutor().execute(new GetAccessTokenTask());
@@ -110,8 +119,10 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 if(Profile.getCurrentProfile() == null){
                     profileTracker.startTracking();
+                    accessTokenTracker.startTracking();
                 }else{
                     profileTracker.stopTracking();
+                    accessTokenTracker.stopTracking();
                 }
             }
 
