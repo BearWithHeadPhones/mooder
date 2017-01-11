@@ -5,8 +5,7 @@ import android.util.Log;
 import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
 import com.bearwithheadphones.mooder.MoodsCreator;
 import com.bearwithheadphones.mooder.MoodsTimelineEntryAdapter;
-import com.facebook.AccessToken;
-import com.facebook.Profile;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,9 +63,9 @@ public class GetUsersMoodsTask implements MooderServerTask {
         {
             System.out.println(e);
             //TODO need to fix this!!!
-            return execute();
+            //return execute();
         }
-        //return "Cannot Connect";
+        return "Cannot Connect";
     }
 
 

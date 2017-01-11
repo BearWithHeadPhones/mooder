@@ -13,14 +13,7 @@
         android:paddingBottom="50dip"
         />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@android:drawable/ic_dialog_email"
-        android:layout_gravity="bottom|right"
-        android:paddingBottom="50dip"/>
+
 
 </FrameLayout>
 
