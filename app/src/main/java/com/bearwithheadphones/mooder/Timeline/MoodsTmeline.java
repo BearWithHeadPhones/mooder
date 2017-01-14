@@ -1,30 +1,16 @@
-package com.bearwithheadphones.mooder;
+package com.bearwithheadphones.mooder.Timeline;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
 import com.bearwithheadphones.mooder.MooderServer.MooderServerTasksExecutor;
-import com.bearwithheadphones.mooder.MooderServer.Tasks.GetUsersMoodsTask;
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphRequestAsyncTask;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.Random;
+import com.bearwithheadphones.mooder.MooderServer.Tasks.GetTimelineEntriesTask;
+import com.bearwithheadphones.mooder.R;
+import com.bearwithheadphones.mooder.Timeline.MoodsTimelineEntryAdapter;
 
 /**
  * Created by bartoszcwynar on 12.04.2016.
@@ -50,9 +36,9 @@ public class MoodsTmeline extends Fragment {
 
         listView = (ListView)rootView.findViewById(R.id.listView);
 
-        GetUsersMoodsTask getUsersMoodsTask = new GetUsersMoodsTask();
-        getUsersMoodsTask.moodsTimelineEntryAdapter = moodsTimelineEntryAdapter;
-        new MooderServerTasksExecutor().execute(getUsersMoodsTask);
+        GetTimelineEntriesTask getTimelineEntriesTask = new GetTimelineEntriesTask();
+        getTimelineEntriesTask.moodsTimelineEntryAdapter = moodsTimelineEntryAdapter;
+        new MooderServerTasksExecutor().execute(getTimelineEntriesTask);
         listView.setAdapter(moodsTimelineEntryAdapter);
 
 

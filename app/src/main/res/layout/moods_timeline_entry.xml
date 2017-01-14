@@ -4,48 +4,63 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:paddingBottom="5pt"
-    android:paddingTop="5pt"
-    android:paddingLeft="1pt"
-    android:paddingRight="1pt">
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/date"
-        android:layout_gravity="center"
-        android:gravity="center" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/username"
-        android:gravity="center"/>
+    android:paddingTop="5pt">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+        android:layout_height="49dp"
+
+        android:gravity="left">
 
         <com.facebook.login.widget.ProfilePictureView
             android:id="@+id/photo"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="left">
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5pt"
+            >
 
         </com.facebook.login.widget.ProfilePictureView>
 
-
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/imageView"
-            />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/username"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_vertical"
+            android:textStyle="bold"
+            android:layout_marginLeft="5pt"/>
 
     </LinearLayout>
+
+
+    <com.bearwithheadphones.mooder.SquareImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:maxWidth="200dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:layout_marginLeft="5pt"
+        android:layout_marginRight="5pt"
+        android:layout_marginTop="5pt"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:layout_marginLeft="5pt"
+        android:layout_marginTop="5pt"/>
 
 </LinearLayout>

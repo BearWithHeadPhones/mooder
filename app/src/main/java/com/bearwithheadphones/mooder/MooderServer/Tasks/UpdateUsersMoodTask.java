@@ -1,15 +1,7 @@
 package com.bearwithheadphones.mooder.MooderServer.Tasks;
 
-import android.util.Log;
-
 import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
-import com.bearwithheadphones.mooder.MoodsCreator;
-import com.bearwithheadphones.mooder.MoodsTimelineEntryAdapter;
-import com.facebook.AccessToken;
-import com.facebook.Profile;
-
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.bearwithheadphones.mooder.Timeline.MoodsTimelineEntryAdapter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,7 +11,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Random;
 
 /**
  * Created by bartoszcwynar on 10.05.2016.
@@ -30,14 +21,16 @@ public class UpdateUsersMoodTask implements MooderServerTask {
     BufferedReader reader = null;
     //final String requestUrl = "moods/";
     String moodType;
+    String description;
 
     final String requestUrl = "moods/";
 
 
 
-    public UpdateUsersMoodTask(String moodType){
+    public UpdateUsersMoodTask(String moodType, String description){
 
         this.moodType = moodType;
+        this.description =description;
     }
 
 
@@ -48,18 +41,17 @@ public class UpdateUsersMoodTask implements MooderServerTask {
         try
         {
 
-            URL url = new URL(MooderServerManager.getInstance().getMooderServerUrl()+ requestUrl + "?moodType=" + moodType);
+            URL url = new URL(MooderServerManager.getInstance().getMooderServerUrl()+ requestUrl );
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Authorization", "Token " + MooderServerManager.getInstance().getAccessToken());
-            urlConnection.setRequestProperty("moodType", moodType);
-
 
             OutputStream os = urlConnection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
             writer.write("moodType="+moodType);
+            writer.write("&description="+description);
 
             writer.flush();
             writer.close();

@@ -4,7 +4,8 @@ import android.util.Log;
 
 import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
 import com.bearwithheadphones.mooder.MoodsCreator;
-import com.bearwithheadphones.mooder.MoodsTimelineEntryAdapter;
+import com.bearwithheadphones.mooder.Timeline.MoodsTimelineEntryAdapter;
+import com.bearwithheadphones.mooder.Timeline.TimelineEntry;
 
 
 import org.json.JSONArray;
@@ -16,18 +17,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class GetUsersMoodsTask implements MooderServerTask {
+public class GetTimelineEntriesTask implements MooderServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
     final String requestUrl = "moods/";
 
-    public GetUsersMoodsTask(){
+    public GetTimelineEntriesTask(){
 
     }
 
@@ -73,14 +77,30 @@ public class GetUsersMoodsTask implements MooderServerTask {
     public void postExecute(String result) {
 
         try{
-            Log.d("GetUsersMoodsTask", new JSONArray(result).toString());
-            JSONArray moods = new JSONArray(result);
-            for(int i = 0;i<moods.length();i++){
-                Log.d("MOODER", moods.getJSONObject(i).get("moodType").toString());
-                moodsTimelineEntryAdapter.ziomeczki.add(moods.getJSONObject(i).get("moodType").toString());
-                //TODO MoodsCreator might be null here.
-                moodsTimelineEntryAdapter.bitmaps.add(MoodsCreator.getInstance().getMoodBitmapByName(moods.getJSONObject(i).get("moodType").toString(),1,1));
-                //moodsTimelineEntryAdapter.bitmaps.add(new MoodsCreator().createMood(1000, generator.nextInt(255), generator.nextInt(255), generator.nextInt(255)));
+            Log.d("GetTimelineEntryTask", new JSONArray(result).toString());
+            JSONArray timelineEntriesJson = new JSONArray(result);
+            for(int i = 0;i<timelineEntriesJson.length();i++){
+                Log.d("MOODER", timelineEntriesJson.getJSONObject(i).get("moodType").toString());
+
+                JSONObject timelineEntryJson = timelineEntriesJson.getJSONObject(i);
+
+                Date created = new Date();
+                try{
+                    created = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(timelineEntryJson.get("created").toString());
+                }catch(ParseException e)
+                {
+                    e.printStackTrace();
+                }
+
+
+                TimelineEntry timelineEntry = new TimelineEntry(timelineEntryJson.getJSONObject("userProfile").get("name").toString(),
+                        MoodsCreator.getInstance().getMoodBitmapByName(timelineEntryJson.get("moodType").toString(), 1, 1),
+                        timelineEntryJson.get("description").toString(),
+                        created);
+
+
+                moodsTimelineEntryAdapter.entries.add(timelineEntry);
+
             }
         }
 

@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
+import com.bearwithheadphones.mooder.Timeline.MoodsTmeline;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 

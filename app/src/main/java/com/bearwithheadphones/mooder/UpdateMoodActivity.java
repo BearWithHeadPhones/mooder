@@ -38,7 +38,7 @@ public class UpdateMoodActivity extends AppCompatActivity {
         updateMoodButton.setOnClickListener(new SquareImageView.OnClickListener() {
             public void onClick(View v) {
                 new MooderServerTasksExecutor().execute(new UpdateUsersMoodTask(getIntent()
-                        .getStringExtra("moodName")));
+                        .getStringExtra("moodName"), "narazie magic text"));
             }
         });
         mood.setImageBitmap(MoodsCreator.getInstance(this.getResources()).getMoodBitmapByName(getIntent()
