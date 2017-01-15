@@ -6,9 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.bearwithheadphones.mooder.MooderServer.MooderServerTasksExecutor;
-import com.bearwithheadphones.mooder.MooderServer.Tasks.GetAccessTokenTask;
-import com.bearwithheadphones.mooder.MooderServer.Tasks.UpdateUsersMoodTask;
+import com.bearwithheadphones.mooder.Server.ServerTasksExecutor;
+import com.bearwithheadphones.mooder.Server.Tasks.UpdateUsersMoodTask;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
@@ -37,7 +36,7 @@ public class UpdateMoodActivity extends AppCompatActivity {
 
         updateMoodButton.setOnClickListener(new SquareImageView.OnClickListener() {
             public void onClick(View v) {
-                new MooderServerTasksExecutor().execute(new UpdateUsersMoodTask(getIntent()
+                new ServerTasksExecutor().execute(new UpdateUsersMoodTask(getIntent()
                         .getStringExtra("moodName"), "narazie magic text"));
             }
         });

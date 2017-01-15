@@ -1,6 +1,6 @@
-package com.bearwithheadphones.mooder.MooderServer.Tasks;
+package com.bearwithheadphones.mooder.Server.Tasks;
 
-import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
+import com.bearwithheadphones.mooder.Server.MooderServerManager;
 import com.bearwithheadphones.mooder.Timeline.MoodsTimelineEntryAdapter;
 
 import java.io.BufferedReader;
@@ -15,7 +15,7 @@ import java.net.URL;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class UpdateUsersMoodTask implements MooderServerTask {
+public class UpdateUsersMoodTask implements ServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;

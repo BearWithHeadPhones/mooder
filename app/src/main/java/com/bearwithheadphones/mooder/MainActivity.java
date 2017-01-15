@@ -17,8 +17,8 @@ package com.bearwithheadphones.mooder;
         import android.widget.Button;
 
 
-        import com.bearwithheadphones.mooder.MooderServer.MooderServerTasksExecutor;
-        import com.bearwithheadphones.mooder.MooderServer.Tasks.GetAccessTokenTask;
+        import com.bearwithheadphones.mooder.Server.ServerTasksExecutor;
+        import com.bearwithheadphones.mooder.Server.Tasks.GetAccessTokenTask;
         import com.facebook.AccessToken;
         import com.facebook.AccessTokenTracker;
         import com.facebook.CallbackManager;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Profile.setCurrentProfile(currentProfile);
 
                 if(currentProfile != null && AccessToken.getCurrentAccessToken() != null ){
-                    new MooderServerTasksExecutor().execute(new GetAccessTokenTask());
+                    new ServerTasksExecutor().execute(new GetAccessTokenTask());
                     goToActivity();
                 }
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 AccessToken.setCurrentAccessToken(newAccessToken);
                 if(newAccessToken != null && Profile.getCurrentProfile() != null)
                 {
-                    new MooderServerTasksExecutor().execute(new GetAccessTokenTask());
+                    new ServerTasksExecutor().execute(new GetAccessTokenTask());
                     goToActivity();
                 }
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         if(accessToken != null && !accessToken.isExpired() && Profile.getCurrentProfile() != null){
             Log.d("AccessToken",accessToken.getToken().toString());
 
-            new MooderServerTasksExecutor().execute(new GetAccessTokenTask());
+            new ServerTasksExecutor().execute(new GetAccessTokenTask());
             goToActivity();
         }
 

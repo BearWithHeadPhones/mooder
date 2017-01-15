@@ -1,9 +1,9 @@
-package com.bearwithheadphones.mooder.MooderServer.Tasks;
+package com.bearwithheadphones.mooder.Server.Tasks;
 
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public interface MooderServerTask {
+public interface ServerTask {
 
     public String execute();
 

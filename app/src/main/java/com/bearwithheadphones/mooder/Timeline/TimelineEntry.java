@@ -9,15 +9,17 @@ import java.util.Date;
  */
 public class TimelineEntry {
 
-    public TimelineEntry(String username,Bitmap moodBitmap,String moodDescription, Date date)
+    public TimelineEntry(String id, String name, Bitmap moodBitmap,String moodDescription, Date date)
     {
-        this.username = username;
+        this.id = id;
+        this.name = name;
         this.moodBitmap = moodBitmap;
         this. moodDescription = moodDescription;
         this.date = date;
     }
 
-    public String username;
+    public String id;
+    public String name;
     public Bitmap moodBitmap;
     public String moodDescription;
     public Date date;

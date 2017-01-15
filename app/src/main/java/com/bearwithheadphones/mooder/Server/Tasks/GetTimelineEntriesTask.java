@@ -1,8 +1,8 @@
-package com.bearwithheadphones.mooder.MooderServer.Tasks;
+package com.bearwithheadphones.mooder.Server.Tasks;
 
 import android.util.Log;
 
-import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
+import com.bearwithheadphones.mooder.Server.MooderServerManager;
 import com.bearwithheadphones.mooder.MoodsCreator;
 import com.bearwithheadphones.mooder.Timeline.MoodsTimelineEntryAdapter;
 import com.bearwithheadphones.mooder.Timeline.TimelineEntry;
@@ -25,7 +25,7 @@ import java.util.Date;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class GetTimelineEntriesTask implements MooderServerTask {
+public class GetTimelineEntriesTask implements ServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
@@ -93,7 +93,8 @@ public class GetTimelineEntriesTask implements MooderServerTask {
                 }
 
 
-                TimelineEntry timelineEntry = new TimelineEntry(timelineEntryJson.getJSONObject("userProfile").get("name").toString(),
+                TimelineEntry timelineEntry = new TimelineEntry(timelineEntryJson.getJSONObject("userProfile").get("username").toString(),
+                        timelineEntryJson.getJSONObject("userProfile").get("name").toString(),
                         MoodsCreator.getInstance().getMoodBitmapByName(timelineEntryJson.get("moodType").toString(), 1, 1),
                         timelineEntryJson.get("description").toString(),
                         created);

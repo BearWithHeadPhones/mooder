@@ -1,4 +1,4 @@
-package com.bearwithheadphones.mooder.MooderServer;
+package com.bearwithheadphones.mooder.Server;
 
 import android.util.Log;
 

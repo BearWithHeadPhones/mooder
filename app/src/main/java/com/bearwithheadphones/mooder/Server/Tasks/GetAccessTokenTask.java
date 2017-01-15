@@ -1,6 +1,6 @@
-package com.bearwithheadphones.mooder.MooderServer.Tasks;
+package com.bearwithheadphones.mooder.Server.Tasks;
 
-import com.bearwithheadphones.mooder.MooderServer.MooderServerManager;
+import com.bearwithheadphones.mooder.Server.MooderServerManager;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
 
@@ -16,7 +16,7 @@ import java.net.URL;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class GetAccessTokenTask implements MooderServerTask {
+public class GetAccessTokenTask implements ServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
