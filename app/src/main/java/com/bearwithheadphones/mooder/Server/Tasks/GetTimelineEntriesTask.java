@@ -79,6 +79,7 @@ public class GetTimelineEntriesTask implements ServerTask {
         try{
             Log.d("GetTimelineEntryTask", new JSONArray(result).toString());
             JSONArray timelineEntriesJson = new JSONArray(result);
+            moodsTimelineEntryAdapter.entries.clear();
             for(int i = 0;i<timelineEntriesJson.length();i++){
                 Log.d("MOODER", timelineEntriesJson.getJSONObject(i).get("moodType").toString());
 

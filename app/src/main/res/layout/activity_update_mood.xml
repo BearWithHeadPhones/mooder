@@ -2,42 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical"
+
     tools:context=".UpdateMoodActivity" tools:ignore="MergeRootFrame"
-    android:paddingTop="10pt">
+    android:paddingTop="10pt"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <EditText
-        android:layout_width="344dp"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_gravity="center_horizontal"
-        android:autoText="false"
-        android:background="#006d6d6d" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <com.bearwithheadphones.mooder.SquareImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:maxWidth="200dp"
-        android:id="@+id/imageView"
-        android:layout_gravity="center" />
+            <com.bearwithheadphones.mooder.SquareImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/imageView" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update mood"
-        android:id="@+id/updateMoodButton"
-        android:layout_gravity="center_horizontal" />
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:progressDrawable="@drawable/circular_progess_view"
+                android:gravity = "center_vertical|center_horizontal"
+                android:layout_gravity="center" />
 
-    <com.facebook.share.widget.ShareButton
-        android:id="@+id/share_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="share"
-        android:layout_gravity="center"
-        android:enabled="false" />
+            <com.facebook.share.widget.ShareButton
+                android:id="@+id/share_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="share"
+                android:layout_gravity="center"
+                android:enabled="false" />
+
+        </FrameLayout>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:id="@+id/editText"
+            android:hint="Say something about your mood..."
+            android:background="#006d6d6d"
+            android:lines="3"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Update mood"
+                android:id="@+id/updateMoodButton"
+                android:layout_gravity="center_horizontal" />
+        </FrameLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.bearwithheadphones.mooder.Server.Tasks;
 
 import com.bearwithheadphones.mooder.Server.MooderServerManager;
 import com.bearwithheadphones.mooder.Timeline.MoodsTimelineEntryAdapter;
+import com.bearwithheadphones.mooder.UpdateMoodActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,15 +23,17 @@ public class UpdateUsersMoodTask implements ServerTask {
     //final String requestUrl = "moods/";
     String moodType;
     String description;
+    UpdateMoodActivity updateMoodActivity;
 
     final String requestUrl = "moods/";
 
 
 
-    public UpdateUsersMoodTask(String moodType, String description){
+    public UpdateUsersMoodTask(String moodType, String description, UpdateMoodActivity updateMoodActivity){
 
         this.moodType = moodType;
         this.description =description;
+        this.updateMoodActivity = updateMoodActivity;
     }
 
 
@@ -81,7 +84,7 @@ public class UpdateUsersMoodTask implements ServerTask {
 
     @Override
     public void postExecute(String result) {
-
+        updateMoodActivity.notifyWithresult(result);
     }
 }
 

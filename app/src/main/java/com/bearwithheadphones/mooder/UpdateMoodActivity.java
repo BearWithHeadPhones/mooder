@@ -4,7 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bearwithheadphones.mooder.Server.ServerTasksExecutor;
 import com.bearwithheadphones.mooder.Server.Tasks.UpdateUsersMoodTask;
@@ -19,6 +23,9 @@ import com.facebook.share.widget.ShareButton;
 public class UpdateMoodActivity extends AppCompatActivity {
 
     private ShareButton shareButton;
+    private ProgressBar progressBar;
+    EditText description;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +37,20 @@ public class UpdateMoodActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
         }
 
+        description = (EditText)findViewById(R.id.editText);
         SquareImageView mood= (SquareImageView)findViewById(R.id.imageView);
 
         Button updateMoodButton = (Button)findViewById(R.id.updateMoodButton);
 
+
+
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
         updateMoodButton.setOnClickListener(new SquareImageView.OnClickListener() {
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 new ServerTasksExecutor().execute(new UpdateUsersMoodTask(getIntent()
-                        .getStringExtra("moodName"), "narazie magic text"));
+                        .getStringExtra("moodName"), description.getText().toString(), UpdateMoodActivity.this));
             }
         });
         mood.setImageBitmap(MoodsCreator.getInstance(this.getResources()).getMoodBitmapByName(getIntent()
@@ -50,7 +63,10 @@ public class UpdateMoodActivity extends AppCompatActivity {
                 .getStringExtra("moodName"),500,500)).build();
 
         SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+
         shareButton.setShareContent(content);
+        //shareButton.setText(description.getText().toString());
+        shareButton.setVisibility(View.GONE);
 
     }
 
@@ -73,6 +89,15 @@ public class UpdateMoodActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
+    }
+
+    public void notifyWithresult(String result){
+
+        progressBar.setVisibility(View.GONE);
+        shareButton.setVisibility(View.VISIBLE);
+
+        Toast.makeText(this,"You've successfully updated Your mood :)",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"... now You can share it on Facebook",Toast.LENGTH_SHORT).show();
     }
 
 

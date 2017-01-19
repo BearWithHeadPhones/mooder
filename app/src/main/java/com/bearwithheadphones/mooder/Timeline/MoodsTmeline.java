@@ -11,12 +11,15 @@ import com.bearwithheadphones.mooder.Server.ServerTasksExecutor;
 import com.bearwithheadphones.mooder.Server.Tasks.GetTimelineEntriesTask;
 import com.bearwithheadphones.mooder.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by bartoszcwynar on 12.04.2016.
  */
 public class MoodsTmeline extends Fragment {
 
-
+    private Timer timer;
     public MoodsTmeline(){
 
     }
@@ -41,6 +44,16 @@ public class MoodsTmeline extends Fragment {
         listView.setAdapter(moodsTimelineEntryAdapter);
 
 
+        timer = new Timer();
+        TimerTask periodicallyCheckForUpdates = new TimerTask() {
+            @Override
+            public void run() {
+                GetTimelineEntriesTask getTimelineEntriesTask = new GetTimelineEntriesTask();
+                getTimelineEntriesTask.moodsTimelineEntryAdapter = moodsTimelineEntryAdapter;
+                new ServerTasksExecutor().execute(getTimelineEntriesTask);
+            }
+        };
+        timer.schedule(periodicallyCheckForUpdates,0,10000);
     return rootView;
     }
 

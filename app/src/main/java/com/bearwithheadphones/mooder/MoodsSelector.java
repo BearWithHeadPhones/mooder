@@ -8,8 +8,11 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 
 
@@ -51,17 +54,36 @@ public class MoodsSelector extends Fragment {
             squareImageView.setOnClickListener(new SquareImageView.OnClickListener() {
                 public void onClick(View v) {
 
-                    //v.startAnimation(AnimationUtils.loadAnimation(rootView.getContext(), R.anim.mood_click_animation));
-                    Intent intent = new Intent(rootView.getContext(), UpdateMoodActivity.class);
 
-                    Log.d("MOODER", Integer.toString((Integer)squareImageView.getTag()));
-                    intent.putExtra("moodName",squareImageView.name);
+                    Animation animation = AnimationUtils.loadAnimation(rootView.getContext(), R.anim.mood_click_animation);
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
 
-                    startActivity(intent);
-                    ((Activity) rootView.getContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            Intent intent = new Intent(rootView.getContext(), UpdateMoodActivity.class);
+
+                            Log.d("MOODER", Integer.toString((Integer) squareImageView.getTag()));
+                            intent.putExtra("moodName", squareImageView.name);
+
+                            startActivity(intent);
+                            ((Activity) rootView.getContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    animation.setFillAfter(true);
+                    v.startAnimation(animation);
 
                 }
             });
+
         }
 
 

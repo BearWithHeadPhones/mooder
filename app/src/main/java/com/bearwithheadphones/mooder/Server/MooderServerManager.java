@@ -10,7 +10,7 @@ public class MooderServerManager {
     private final String devServer = "http://192.168.1.102:8000/";
     private final String pythonAnywhereServer = "http://bearwithheadphones.pythonanywhere.com/";
     private static MooderServerManager mooderServerManager;
-    private final String mooderServerUrl = devServer;
+    private final String mooderServerUrl = pythonAnywhereServer;
     private String accessToken = "";
 
     private MooderServerManager(){
