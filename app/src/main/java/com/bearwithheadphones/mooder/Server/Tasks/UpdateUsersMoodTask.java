@@ -16,7 +16,7 @@ import java.net.URL;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class UpdateUsersMoodTask implements ServerTask {
+public class UpdateUsersMoodTask extends ServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
@@ -81,10 +81,14 @@ public class UpdateUsersMoodTask implements ServerTask {
         return "Cannot Connect";
     }
 
+    @Override
+    public  void handleResult(Result result){
+        updateMoodActivity.notifyWithresult(result);
+    }
 
     @Override
     public void postExecute(String result) {
-        updateMoodActivity.notifyWithresult(result);
+        updateMoodActivity.notifyWithresult(Result.Success);
     }
 }
 

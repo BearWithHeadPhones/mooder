@@ -15,6 +15,7 @@ package com.bearwithheadphones.mooder;
         import android.view.View;
 
         import android.widget.Button;
+        import android.widget.ImageView;
 
 
         import com.bearwithheadphones.mooder.Server.ServerTasksExecutor;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 Profile.setCurrentProfile(currentProfile);
 
                 if(currentProfile != null && AccessToken.getCurrentAccessToken() != null ){
-                    new ServerTasksExecutor().execute(new GetAccessTokenTask());
+                    new ServerTasksExecutor(getBaseContext()).run(new GetAccessTokenTask());
                     goToActivity();
                 }
 
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 AccessToken.setCurrentAccessToken(newAccessToken);
                 if(newAccessToken != null && Profile.getCurrentProfile() != null)
                 {
-                    new ServerTasksExecutor().execute(new GetAccessTokenTask());
+                    new ServerTasksExecutor(getBaseContext()).run(new GetAccessTokenTask());
                     goToActivity();
                 }
 
@@ -85,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
         loginButton = (LoginButton)findViewById(R.id.connectWithFbButton);
 
         loginButton.setReadPermissions("user_friends");
+
+        ImageView image = (ImageView)findViewById(R.id.loginLogo);
+        image.setImageResource(R.drawable.mooder_logo);
 
         if (savedInstanceState == null) {
         }
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         if(accessToken != null && !accessToken.isExpired() && Profile.getCurrentProfile() != null){
             Log.d("AccessToken",accessToken.getToken().toString());
 
-            new ServerTasksExecutor().execute(new GetAccessTokenTask());
+            new ServerTasksExecutor(getBaseContext()).run(new GetAccessTokenTask());
             goToActivity();
         }
 
@@ -137,14 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button launch = (Button)findViewById(R.id.button);
-        launch.setOnClickListener(new SquareImageView.OnClickListener() {
-            public void onClick(View v) {
 
-                goToActivity();
-
-            }
-        });
 
 
 

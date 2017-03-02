@@ -1,8 +1,12 @@
 package com.bearwithheadphones.mooder;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bearwithheadphones.mooder.Server.ServerTasksExecutor;
+import com.bearwithheadphones.mooder.Server.Tasks.ServerTask;
 import com.bearwithheadphones.mooder.Server.Tasks.UpdateUsersMoodTask;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.SharePhoto;
@@ -46,10 +51,18 @@ public class UpdateMoodActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
+
+
         updateMoodButton.setOnClickListener(new SquareImageView.OnClickListener() {
             public void onClick(View v) {
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+
                 progressBar.setVisibility(View.VISIBLE);
-                new ServerTasksExecutor().execute(new UpdateUsersMoodTask(getIntent()
+                new ServerTasksExecutor(getBaseContext()).run(new UpdateUsersMoodTask(getIntent()
                         .getStringExtra("moodName"), description.getText().toString(), UpdateMoodActivity.this));
             }
         });
@@ -80,6 +93,7 @@ public class UpdateMoodActivity extends AppCompatActivity {
         if(id == android.R.id.home){
             finish();
             overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
+            return true;
 
         }
         return super.onOptionsItemSelected(item);
@@ -88,10 +102,17 @@ public class UpdateMoodActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
     }
 
-    public void notifyWithresult(String result){
+    public void notifyWithresult(ServerTask.Result result){
+        if(result == ServerTask.Result.NoInternetConnection)
+        {
+            Toast.makeText(this, "No internet connection available :(", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
 
         progressBar.setVisibility(View.GONE);
         shareButton.setVisibility(View.VISIBLE);

@@ -25,7 +25,7 @@ import java.util.Date;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class GetTimelineEntriesTask implements ServerTask {
+public class GetTimelineEntriesTask extends ServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;

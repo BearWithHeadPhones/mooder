@@ -3,9 +3,15 @@ package com.bearwithheadphones.mooder.Server.Tasks;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public interface ServerTask {
+public abstract class ServerTask {
 
-    public String execute();
+    public enum Result{
+        NoInternetConnection, Success, Failure
+    }
 
-    public void postExecute(String result);
+    public abstract String execute();
+
+    public abstract void postExecute(String result);
+
+    public void handleResult(Result result){};
 }

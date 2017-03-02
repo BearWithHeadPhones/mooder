@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -52,7 +51,7 @@ public class MoodsSelector extends Fragment {
 
         for(final SquareImageView squareImageView: imageAdapter.squareImageViews) {
             squareImageView.setOnClickListener(new SquareImageView.OnClickListener() {
-                public void onClick(View v) {
+                public void onClick(final View v) {
 
 
                     Animation animation = AnimationUtils.loadAnimation(rootView.getContext(), R.anim.mood_click_animation);
@@ -64,6 +63,8 @@ public class MoodsSelector extends Fragment {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
+
+                            v.startAnimation(AnimationUtils.loadAnimation(rootView.getContext(), R.anim.mood_click_animation_reverse));
                             Intent intent = new Intent(rootView.getContext(), UpdateMoodActivity.class);
 
                             Log.d("MOODER", Integer.toString((Integer) squareImageView.getTag()));
@@ -71,6 +72,8 @@ public class MoodsSelector extends Fragment {
 
                             startActivity(intent);
                             ((Activity) rootView.getContext()).overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+
+
                         }
 
                         @Override

@@ -16,7 +16,7 @@ import java.net.URL;
 /**
  * Created by bartoszcwynar on 10.05.2016.
  */
-public class GetAccessTokenTask implements ServerTask {
+public class GetAccessTokenTask extends ServerTask {
 
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;

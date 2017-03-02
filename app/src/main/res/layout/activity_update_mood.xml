@@ -4,13 +4,57 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
 
     tools:context=".UpdateMoodActivity" tools:ignore="MergeRootFrame"
-    android:paddingTop="10pt"
     android:orientation="vertical">
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <com.facebook.login.widget.ProfilePictureView
+                android:id="@+id/photo"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5pt"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Visibility:Facebook friends"
+                android:id="@+id/textView2"
+                android:layout_weight="0.60"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update mood"
+                android:id="@+id/updateMoodButton"
+                android:layout_weight="0.40" />
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:id="@+id/editText"
+            android:hint="Say something about your mood..."
+            android:lines="3"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#ffffff"
+            android:textCursorDrawable="@null"/>
 
 
         <FrameLayout
@@ -39,27 +83,6 @@
                 android:layout_gravity="center"
                 android:enabled="false" />
 
-        </FrameLayout>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:id="@+id/editText"
-            android:hint="Say something about your mood..."
-            android:background="#006d6d6d"
-            android:lines="3"/>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Update mood"
-                android:id="@+id/updateMoodButton"
-                android:layout_gravity="center_horizontal" />
         </FrameLayout>
 
     </LinearLayout>

@@ -40,7 +40,7 @@ public class MoodsTmeline extends Fragment {
 
         GetTimelineEntriesTask getTimelineEntriesTask = new GetTimelineEntriesTask();
         getTimelineEntriesTask.moodsTimelineEntryAdapter = moodsTimelineEntryAdapter;
-        new ServerTasksExecutor().execute(getTimelineEntriesTask);
+        new ServerTasksExecutor(getActivity()).run(getTimelineEntriesTask);
         listView.setAdapter(moodsTimelineEntryAdapter);
 
 
@@ -50,7 +50,7 @@ public class MoodsTmeline extends Fragment {
             public void run() {
                 GetTimelineEntriesTask getTimelineEntriesTask = new GetTimelineEntriesTask();
                 getTimelineEntriesTask.moodsTimelineEntryAdapter = moodsTimelineEntryAdapter;
-                new ServerTasksExecutor().execute(getTimelineEntriesTask);
+                new ServerTasksExecutor(getActivity()).run(getTimelineEntriesTask);
             }
         };
         timer.schedule(periodicallyCheckForUpdates,0,10000);
