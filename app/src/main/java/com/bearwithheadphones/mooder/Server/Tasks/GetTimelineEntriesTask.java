@@ -5,6 +5,7 @@ import android.util.Log;
 import com.bearwithheadphones.mooder.Server.MooderServerManager;
 import com.bearwithheadphones.mooder.MoodsCreator;
 import com.bearwithheadphones.mooder.Timeline.MoodsTimelineEntryAdapter;
+import com.bearwithheadphones.mooder.Timeline.MoodsTmeline;
 import com.bearwithheadphones.mooder.Timeline.TimelineEntry;
 
 
@@ -30,20 +31,22 @@ public class GetTimelineEntriesTask extends ServerTask {
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
     final String requestUrl = "moods/";
+    MoodsTmeline moodsTimeline;
 
-    public GetTimelineEntriesTask(){
-
+    public GetTimelineEntriesTask(MoodsTmeline moodsTimeline){
+        this.moodsTimeline = moodsTimeline;
     }
 
 
     public MoodsTimelineEntryAdapter moodsTimelineEntryAdapter;
+    public int length = 1;
 
     @Override
     public String execute() {
         try
         {
 
-            URL url = new URL(MooderServerManager.getInstance().getMooderServerUrl()+ requestUrl);
+            URL url = new URL(MooderServerManager.getInstance().getMooderServerUrl()+ requestUrl + "?length=" + length);
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -111,6 +114,13 @@ public class GetTimelineEntriesTask extends ServerTask {
         }
 
         moodsTimelineEntryAdapter.notifyDataSetChanged();
+
+        moodsTimeline.notifyWithresult(Result.Success);
+    }
+
+    @Override
+    public  void handleResult(Result result){
+        moodsTimeline.notifyWithresult(result);
     }
 }
 
